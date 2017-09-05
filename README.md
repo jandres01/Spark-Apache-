@@ -6,6 +6,8 @@ This repository is for my CSCI-3395 Big Data class in Trinity University. We'll 
 
 # Links to the datasets!
 
+pathway to dataset: ~/jandres/CSCI3395/data
+
 Collected the Shark Attacks Worldwide dataset from https://www.statcrunch.com/app/index.php?dataid=2188687
 
 Collected the MLB player salaries from https://www.statcrunch.com/app/index.php?dataid=2188689
