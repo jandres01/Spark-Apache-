@@ -17,18 +17,16 @@
 4. 9 courses have given questions with the lambda type
 5. userid39 has the most correct answers with 26
 6. 
-+-----------+-------+
 | spec_type | total |
-+-----------+-------+
 |         0 |    13 |
 |         2 |     6 |
 |         3 |     5 |
-+-----------+-------+
+
 7. 0.3818 of of quizzes have coding questions
 8. 2.0182 multiple choise per quiz
 9. 0.6885 coding questions per quiz
-10. userid | MAX(attempts) |
-+--------+---------------+
+10. 
+| userid | MAX(attempts) |
 |      1 |            66 |
 |      2 |             4 |
 |      7 |            25 |
@@ -206,5 +204,4 @@
 |    220 |             1 |
 |    221 |             3 |
 |    222 |            12 |
-+--------+---------------+
 
