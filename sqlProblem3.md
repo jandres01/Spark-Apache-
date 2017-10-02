@@ -18,6 +18,7 @@
 5. userid39 has the most correct answers with 26
 6. 
 | spec_type | total |
+| -- | --|
 |         0 |    13 |
 |         2 |     6 |
 |         3 |     5 |
@@ -27,6 +28,7 @@
 9. 0.6885 coding questions per quiz
 10. 
 | userid | MAX(attempts) |
+| --  | -- |
 |      1 |            66 |
 |      2 |             4 |
 |      7 |            25 |

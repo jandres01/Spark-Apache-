@@ -2,6 +2,7 @@ package rdd1
 
 import scalafx.application.JFXApp
 import org.apache.spark._
+import org.apache.spark.rdd.PairRDDFunctions
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 
@@ -13,7 +14,7 @@ case class StationsData(id: String, latitude: Double, longitude: Double, elevati
 object byYear extends JFXApp {
   val conf = new SparkConf().setAppName("Sample Application").setMaster("local[*]")
   val sc = new SparkContext(conf)
- 
+  sc.setLogLevel("WARN")
   val lines2017 = sc.textFile("/users/mlewis/CSCI3395-F17/data/ghcn-daily/2017.csv")
   val countries = sc.textFile("/users/mlewis/CSCI3395-F17/data/ghcn-daily/ghcnd-countries.txt")
   val stations = sc.textFile("/users/mlewis/CSCI3395-F17/data/ghcn-daily/ghcnd-stations.txt")
@@ -60,21 +61,27 @@ object byYear extends JFXApp {
   
   val maxTempLoc = stationsInfo.filter(td => td.id == maxTemp2017.id).map(_.name)
   println("Max Temp Location is below ")
-//  maxTempLoc foreach println
+  maxTempLoc foreach println
   
   //Q4 In Class
-  val stationIDs = stationsInfo.map(_.id)
-  val seq2017IDs = tempData.map(td => td.id.distinct).collect().toSeq
+  val stationIDs = stationsInfo.groupBy(_.id)    //stationsInfo.map{ case (id,doy,elem,dv) => ((id),doy,elem,dv) }
+  val seq2017IDs = tempData.filter(td => td.elem =="TMAX").groupBy(_.id)
+  val joinStations = seq2017IDs.join(stationIDs)
   
-  val stationsNoData = stationIDs.filter(td => seq2017IDs.contains(td)) 
-  stationsNoData.take(5) foreach println
-  val countStationsNoData = stationsNoData.count()
+  val txStations = joinStations.flatMap(_._2._1) //FlatMap saves the day!
+  val maxValue = txStations.map(_.dv).max()
+  println(maxValue)
   
-  println("huh")
-  println("There are " +countStationsNoData+ " stations with no data")
   
-  val stationsInTX = tempData.map(td => td.id.substring(0,2)=="TX"-> td)
-  stationsInTX.take(5) foreach println
+//  val stationsNoData = stationIDs.filter(td => seq2017IDs.contains(td)) 
+//  stationsNoData.take(5) foreach println
+//  val countStationsNoData = stationsNoData.count()
+//  
+//  println("huh")
+//  println("There are " +countStationsNoData+ " stations with no data")
+//  
+//  val stationsInTX = tempData.map(td => td.id.substring(0,2)=="TX"-> td)
+//  stationsInTX.take(5) foreach println
 
   
   //Q1: Grab ids in TX from stations data; compare array with 2017 data and get all rows with same IDs & with 4 char ELEM == "PRCP"; then find max dvalue 
