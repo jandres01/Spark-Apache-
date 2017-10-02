@@ -4,7 +4,8 @@
 1. 264 data series
 2. 85751.0 highest unemployment level
 3. There are 14320 cities w/ area_type_code = G
-4 
+4. 
+
 a. 6.922916666666667 average of the months for NM
 b. 7.001939655172413 is simple average unemployment rate for NM in 2017
 
