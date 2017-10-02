@@ -1,4 +1,4 @@
-#Written By Robbie Andres Problem 4
+##Written By Robbie Andres Problem 4
 
 #### In Class Questions
 1. 264 data series
@@ -7,7 +7,14 @@
 4. 
 
 a. 6.922916666666667 average of the months for NM
+|       avg(avg_v)|
+|--|
+|6.922916666666666|
+
 b. 7.001939655172413 is simple average unemployment rate for NM in 2017
+|       avg(value)|
+|--|
+|7.001939655172415|
 
 #### Out of Class Problems
 1.
