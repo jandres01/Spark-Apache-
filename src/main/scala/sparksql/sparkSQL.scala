@@ -71,12 +71,12 @@ object sparkSQL extends JFXApp {
 
   // IC Q1
   val q1 = dataNM.select('series_id).distinct().count()
-  //println("Q1: " + q1)
+  println("Q1: " + q1)
 
   // IC Q2
   val q2 = dataNM.filter(substring('series_id, 19, 2) === "04").agg(max('value))
   println("Q2: ")
-  //q2.show()
+  q2.show()
 
   // IC Q3
   val dsG = dataSeries.filter('area_type_code === "G")
@@ -88,7 +88,7 @@ object sparkSQL extends JFXApp {
   val q4a = urNMID.sort('period).groupBy('period).agg(avg('value).alias("avg_v"))
   val avgM = q4a.agg(avg('avg_v))
   println("Q4a: ")
-  //avgM.show()
+  avgM.show()
   
   //IC Q4b
   val q4b = urNMID.sort(substring('series_id, 4,15)).agg(avg('value))
@@ -100,7 +100,7 @@ object sparkSQL extends JFXApp {
   dataNM.createOrReplaceTempView("nmdata")
   val lf = dataNM.filter(substring('series_id,19,2) === "06" && 'year === "2017").withColumn("seriesID", substring('series_id,0,18)).withColumnRenamed("value", "lfvalue")
   val wa = dataNM.filter(substring('series_id,19,2) === "03" && 'year === "2017").withColumn("seriesID", substring('series_id,0,18)).join(lf, Seq("seriesID","period")).agg(sum('value*'lfvalue)/sum('lfvalue))
- // wa.show()
+  wa.show()
   
   //Out of Class Q2
   dataTX.createOrReplaceTempView("txdata")
@@ -109,39 +109,44 @@ object sparkSQL extends JFXApp {
   // val urTX = dataTX.filter(substring('series_id,19,2) === "03")
   //  val maxurTX = lfTX.as('lf).join(urTX.as('ur), $"ur.series_id" === $"lf.series_id").sort($"ur.value".desc)
   println("Out of Class Q2: ")
- // maxURTX.show(false)
+  maxURTX.show(false)
   
   //Out of Class Q3
-  
   states.createOrReplaceTempView("sdata") //states loads full data set
 
   val highUR = spark.sql("select * from sdata AS s,(select substring(series_id,4,15) AS lf from sdata where substring(series_id,19,2) == '06' AND value > 10000) AS lfdata WHERE substring(s.series_id,4,15)== lfdata.lf AND substring(s.series_id,19,2) == '03' ORDER BY s.value DESC LIMIT 1")
   println("Out of Class Q3: ")
-  //highUR.show(false)
+  highUR.show(false)
   
   //Out of Class Q4
   dataSeries.createOrReplaceTempView("seriesD")
   println("Out of Class Q4 ")
   val highSeries = spark.sql("select srd_code,count(series_id) AS c from seriesD GROUP BY srd_code ORDER BY c DESC LIMIT 1")
- // highSeries.show()
-  
-//  distinctSeries.show()
+  highSeries.show()
+
   
   //Out of CLass Q5
   zipSeries.createOrReplaceTempView("zdata")
   println("Out of Class Q5")
-//  val d2000 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2000') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county ORDER BY county")
-//  println("2000 data")
-//  d2000.show()
-//  
-//  val d2005 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2005') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county ORDER BY county")
-//  println("2005 data")
-//  d2005.show()
-//  
-//  val d2010 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2010') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county ORDER BY county")
-//  println("2010 data")
-//  d2010.show()
- 
+  //Data yr 2000
+  val d2000 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2000') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county")
+  println("2000 data")
+  d2000.show()
+  val yr2000 = d2000.collect()
+  
+  //Data yr 2005
+  val d2005 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2005') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county")
+  println("2005 data")
+  d2005.show()
+  val yr2004 = d2005.collect()
+  
+  //Data yr 2010
+  val d2010 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2010') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county")
+  println("2010 data")
+  d2010.show()
+  val yr2010 = d2010.collect()
+  
+  //Data yr 2015
   val d2015 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2015') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county") //) AS info WHERE TRIM(info.st) == zdata.county
   println("2015 data")
   d2015.show(false)
@@ -150,14 +155,19 @@ object sparkSQL extends JFXApp {
   
   val temps = d2015.collect()
   val c = temps.map{r => r.toSeq.toArray}
-  c.take(5) foreach println
+//  println("fail")
+//  c.take(5) foreach println 
   
-  val lat = c.map(a => a(1).toString().toDouble)
+  val latlong = c.map(a => (a(1).toString().toDouble, a(2).toString().toDouble))
   val long = c.map(a => a(2).toString().toDouble)
   
-  println(long(0))
-  val tplot = Plot.scatterPlot(lat, long, "Temps", "year", "Temp", 10, 0xff55aa99)
-  FXRenderer(tplot)
+  val cg = ColorGradient((0.0,BlueARGB),(10.0,GreenARGB),(20.0,RedARGB)) 
+  
+//  println("check")
+//  println(long(0))
+  
+  val tplot = Plot.scatterPlot(latlong.map(a => a._1), latlong.map(a=> a._2), "2015", "Latitude", "Longitude", 5.0, latlong.map(a => cg(a._1)))
+  FXRenderer.aliased(tplot, 2000, 2000)
   
   //val check = spark.sql("select LOCATE('County,',substring_index(series_title,':',-1)) from seriesD where area_type_code='F'") 
   //check.show()
