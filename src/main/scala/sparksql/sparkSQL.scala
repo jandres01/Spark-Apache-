@@ -131,43 +131,51 @@ object sparkSQL extends JFXApp {
   //Data yr 2000
   val d2000 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2000') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county")
   println("2000 data")
-  d2000.show()
-  val yr2000 = d2000.collect()
+  //d2000.show()
   
   //Data yr 2005
   val d2005 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2005') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county")
   println("2005 data")
-  d2005.show()
-  val yr2004 = d2005.collect()
+  //d2005.show()
   
   //Data yr 2010
   val d2010 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2010') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county")
   println("2010 data")
-  d2010.show()
-  val yr2010 = d2010.collect()
+  //d2010.show()
   
   //Data yr 2015
   val d2015 = spark.sql("select * from zdata,(select series_id, avg(sd.va), substring_index(substring_index(series_title,':',-1), 'County,' ,1) AS st from seriesD, (select series_id AS sy,value AS va from sdata where year == '2015') AS sd WHERE seriesD.series_id == sd.sy AND srd_code != '80' AND srd_code != '02' AND srd_code != '15' AND srd_code != '72' AND area_type_code ='F' GROUP BY series_id,st) AS info WHERE TRIM(info.st) == zdata.county AND zdata.longitude IS NOT NULL AND zdata.latitude IS NOT NULL ORDER BY county") //) AS info WHERE TRIM(info.st) == zdata.county
   println("2015 data")
-  d2015.show(false)
+  //d2015.show(false)
   
   //.cache does not reload file because storing it in memory
   
-  val temps = d2015.collect()
-  val c = temps.map{r => r.toSeq.toArray}
-//  println("fail")
-//  c.take(5) foreach println 
+  val v00 = d2010.filter('latitude.isNotNull && 'longitude.isNotNull).collect()
+  val v05 = d2005.filter('latitude.isNotNull && 'longitude.isNotNull).collect() 
+  val v10 = d2010.filter('latitude.isNotNull && 'longitude.isNotNull).collect()
+  val temps = d2015.filter('latitude.isNotNull && 'longitude.isNotNull).collect()
   
-  val latlong = c.map(a => (a(1).toString().toDouble, a(2).toString().toDouble))
-  val long = c.map(a => a(2).toString().toDouble)
+  val latlong00 = v00.map(a => (a.getDouble(1), a.getDouble(2),a.getDouble(7)))
+  val latlong05 = v05.map(a => (a.getDouble(1), a.getDouble(2),a.getDouble(7)))
+  val latlong10 = v10.map(a => (a.getDouble(1), a.getDouble(2),a.getDouble(7)))
+  val latlong15 = temps.map(a => (a.getDouble(1), a.getDouble(2),a.getDouble(7)))
+ // val long = c.map(a => a(2).toString().toDouble)
   
   val cg = ColorGradient((0.0,BlueARGB),(10.0,GreenARGB),(20.0,RedARGB)) 
   
-//  println("check")
-//  println(long(0))
+//   val tplot = Plot.scatterPlotGrid(Seq( (latlong00.map(a => a._2), latlong00.map(a=> a._1), t15.map(cg), 3 ), (latlong05.map(a => a._2), latlong05.map(a=> a._1), latlong05.map(a => cg(a._3),3))),
+//              Seq((latlong10.map(a => a._2), latlong10.map(a=> a._1), latlong10.map(a => cg(a._3)),3), (latlong15.map(a => a._2), latlong15.map(a=> a._1), latlong15.map(a => cg(a._3),3))),
+//              "Unemployment Rate in US",
+//              )
   
-  val tplot = Plot.scatterPlot(latlong.map(a => a._1), latlong.map(a=> a._2), "2015", "Latitude", "Longitude", 5.0, latlong.map(a => cg(a._1)))
-  FXRenderer.aliased(tplot, 2000, 2000)
+  val tplot00 = Plot.scatterPlot(latlong00.map(a => a._2), latlong15.map(a=> a._1), "2000", "Long", "Lat", 3.0, latlong00.map(a => cg(a._3)))
+  val tplot05 = Plot.scatterPlot(latlong00.map(a => a._2), latlong15.map(a=> a._1), "2005", "Long", "Lat", 3.0, latlong05.map(a => cg(a._3)))
+  val tplot10 = Plot.scatterPlot(latlong10.map(a => a._2), latlong10.map(a=> a._1), "2010", "Long", "Lat", 3.0, latlong10.map(a => cg(a._3)))
+  val tplot15 = Plot.scatterPlot(latlong15.map(a => a._2), latlong15.map(a=> a._1), "2015", "Long", "Lat", 3.0, latlong15.map(a => cg(a._3)))
+  FXRenderer.aliased(tplot00, 600, 600)  
+  FXRenderer.aliased(tplot05, 600, 600)
+  FXRenderer.aliased(tplot10, 600, 600)
+  FXRenderer.aliased(tplot15, 600, 600)
   
   //val check = spark.sql("select LOCATE('County,',substring_index(series_title,':',-1)) from seriesD where area_type_code='F'") 
   //check.show()
