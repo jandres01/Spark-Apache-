@@ -36,7 +36,6 @@ object sparkSQL extends JFXApp {
        csv("/data/BigData/bls/la/la.data."+stNum+"."+stName)
     data
   }  
-
     
   val schema2 = StructType(Array(
     StructField("series_id", StringType),

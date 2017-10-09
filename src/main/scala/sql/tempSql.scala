@@ -2,7 +2,7 @@ import scalafx.application.JFXApp
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types._
 
-object TempSQL extends JFXApp {
+object tempSQL extends JFXApp {
   val spark = SparkSession.builder().master("local[*]").getOrCreate()
   import spark.implicits._
 
