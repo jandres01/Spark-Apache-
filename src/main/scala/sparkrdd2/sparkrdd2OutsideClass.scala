@@ -263,7 +263,7 @@ object sparkrdd2OutsideClass extends JFXApp {
     val stationAverage2 = stationSumCount2._1 / stationSumCount2._2
     
     val joinedStationsBothYears = (stationAverage2 + stationAverage )/2
-    joinedStationsBothYears
+    //joinedStationsBothYears
     
   }
   //val test = getStationAvgTempFromBothYears()
@@ -443,24 +443,7 @@ object sparkrdd2OutsideClass extends JFXApp {
   
   sc.stop()
   */
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   
 }

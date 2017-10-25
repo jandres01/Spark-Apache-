@@ -40,5 +40,5 @@ d. I find the simple average a lazy average of the data. I also think the averag
 | -- | -- |
 |      23|2296|
 
-5. NO DAMN MATCH!!!! =(((  
+5. Look at folder titled unemployment_rate_pics_problem4  
  

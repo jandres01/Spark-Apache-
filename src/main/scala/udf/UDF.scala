@@ -98,8 +98,6 @@ println("Between Class:")
 println("")
 println("1.)")
 
-
-
 val statesRate = statesData.filter(substring($"series_id",19,2) === "03")
 /*
 val statesRate1990 = statesRate.filter(s=>(s.year == 1990 && s.period == "M06")  )
