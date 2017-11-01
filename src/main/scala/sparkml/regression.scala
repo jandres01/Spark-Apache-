@@ -57,17 +57,17 @@ object regression extends App {
   val dFrame = spark.createDataFrame(dataInfo, dfSchema)
   
   println("In Class A:")
-//  dFrame.describe("GENHLTH").show()
-//  println("In Class B:")
-//  dFrame.describe("PHYSHLTH").show()
-//  println("In Class C:")
-//  dFrame.describe("MENTHLTH").show()
-//  println("In Class D:")
-//  dFrame.describe("POORHLTH").show()
-//  println("In Class E:")
-//  dFrame.describe("EXERANY2").show()
-//  println("In Class F:")
-//  dFrame.describe("SLEPTIM1").show()
+  dFrame.describe("GENHLTH").show()
+  println("In Class B:")
+  dFrame.describe("PHYSHLTH").show()
+  println("In Class C:")
+  dFrame.describe("MENTHLTH").show()
+  println("In Class D:")
+  dFrame.describe("POORHLTH").show()
+  println("In Class E:")
+  dFrame.describe("EXERANY2").show()
+  println("In Class F:")
+  dFrame.describe("SLEPTIM1").show()
   
  //dFrame.show()
   
@@ -100,6 +100,7 @@ object regression extends App {
    }
    listCorr
  }
+ 
  println("Gen list "+listCorrelations("GENHLTH",0.12))
  println("Phys list "+listCorrelations("PHYSHLTH",0.15))
  println("Ment list "+listCorrelations("MENTHLTH",0.08))

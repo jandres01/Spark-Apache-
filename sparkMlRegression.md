@@ -84,6 +84,7 @@ MentHTLTH ListBuffer(POORHLTH, VETERAN3, _RFHLTH, _PHYS14D)
 PoorHTLTH ListBuffer(MENTHLTH, RMVTETH3, _RFHLTH, _PHYS14D)
 
 Describe MENT
+
 |summary|        prediction|
 | -- | -- |
 |  count|            486303|
@@ -93,6 +94,7 @@ Describe MENT
 |    max|116.43343212097741|
 
 Describe POOR
+
 |summary|        prediction|
 | -- | -- |
 |  count|            486303|
