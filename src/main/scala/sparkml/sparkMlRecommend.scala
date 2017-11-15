@@ -79,38 +79,38 @@ object sparkMlRecommend extends App {
   val movieData = spark.read.schema(movieSchema).option("header",false).option("delimiter", ",").csv("/data/BigData/Netflix/movie_titles.csv")
   
   //Q#1
-//  val columnName = inClassData.columns(0)
-//  
-//  val rangeUserID = inClassData.agg(min(columnName),max(columnName))
-//  rangeUserID.show()
-//  
-//  inClassData.describe("userID").show()
-//  
-//  //Q#2
-//  val countDistinctUserID = inClassData.select('userID).distinct().count()
-//  println("There are "+countDistinctUserID+" distinct userIDs")
-//  
-//  //Q#3
-//  val c5StarRating1 = inClassData.filter('userID === 372233 && 'rating === 5).count()
-//  println("User 372233 gave "+ c5StarRating1   + " 5 star rating")
-//  
-//  //Q#4
-//  println("Movie with most user ratings")
-//  val movieRatingCount = inClassData.groupBy('movieID).count()
-//  
-//  movieRatingCount.orderBy('count.desc).limit(1).show(false)
-//  
-//  movieData.filter('movieID === 571).show(false)
-//  
-////  val mostMovieRatings = movieRatingCount.agg(max("count"))
-////  mostMovieRatings.show()
-//  
-//  //Q#5
-//  println("Movie with most 5 star ratings")
-//  inClassData.filter('rating === 5).groupBy('movieID).count().orderBy('count.desc).limit(1).show(false)
-//  
-//  movieData.filter('movieID === 571).show(false)
-//  
+  val columnName = inClassData.columns(0)
+  
+  val rangeUserID = inClassData.agg(min(columnName),max(columnName))
+  rangeUserID.show()
+  
+  inClassData.describe("userID").show()
+  
+  //Q#2
+  val countDistinctUserID = inClassData.select('userID).distinct().count()
+  println("There are "+countDistinctUserID+" distinct userIDs")
+  
+  //Q#3
+  val c5StarRating1 = inClassData.filter('userID === 372233 && 'rating === 5).count()
+  println("User 372233 gave "+ c5StarRating1   + " 5 star rating")
+  
+  //Q#4
+  println("Movie with most user ratings")
+  val movieRatingCount = inClassData.groupBy('movieID).count()
+  
+  movieRatingCount.orderBy('count.desc).limit(1).show(false)
+  
+  movieData.filter('movieID === 571).show(false)
+  
+//  val mostMovieRatings = movieRatingCount.agg(max("count"))
+//  mostMovieRatings.show()
+  
+  //Q#5
+  println("Movie with most 5 star ratings")
+  inClassData.filter('rating === 5).groupBy('movieID).count().orderBy('count.desc).limit(1).show(false)
+  
+  movieData.filter('movieID === 571).show(false)
+  
   //Out of Class Q#1
   println("Top 5 Movie Recommendations for Users")
   val als = new ALS().setImplicitPrefs(false).setRank(10).setRegParam(0.1).setAlpha(1.0).setMaxIter(10).

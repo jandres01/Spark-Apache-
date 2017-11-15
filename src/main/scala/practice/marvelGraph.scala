@@ -16,7 +16,7 @@ object MarvelGraph {
     val conf = new SparkConf().setAppName("Graph Application").setMaster("local[*]")
     val sc = new SparkContext(conf)
 		sc.setLogLevel("WARN")
-
+    
     // Read in data
     val nodes = scala.io.Source.fromFile("/users/mlewis/CSCI3395-F17/data/nodes.csv").getLines.drop(1).map { line =>
       val comma = line.lastIndexOf(",")
@@ -39,28 +39,21 @@ object MarvelGraph {
     
     // Find distance between NIGHTCRAWLER | MUTAN and CAGE, LUKE/CARL LUCA
     val sp = ShortestPaths.run(graph, Seq(indexMap("CAGE, LUKE/CARL LUCA")))
-    println(sp.vertices.filter(_._1==indexMap("NIGHTCRAWLER | MUTAN")).first) // -> x steps from nightcrawler to luke cage
+    println(sp.vertices.filter(_._1==indexMap("NIGHTCRAWLER | MUTAN")).first)
     
     // Connected Components
     graph.connectedComponents().vertices.
-        filter(t => t._2 != 3 && nodes(t._1.toInt)._2.ntype == "hero").collect.map(t => t._2 -> nodes(t._1.toInt)) foreach println  //nodes not part of primary component
+        filter(t => t._2 != 3 && nodes(t._1.toInt)._2.ntype == "hero").collect.map(t => t._2 -> nodes(t._1.toInt)) foreach println
     
     // Run page rank
-        
-    //heroRank only contain vertices that are heroes... epred = edge predicate, et = edge triplet 
     val heroGraph = graph.subgraph(et => {
       et.srcAttr.ntype == "hero" && et.dstAttr.ntype == "hero"
     }, (id, v) => v.ntype == "hero")
-    val rankH = heroGraph.pageRank(0.01)
-    val rankedH = nodesRDD.join(rankH.vertices).sortBy(-_._2._2)
-    rankedH.take(20) foreach println  //because we removed so much nodes thus affected the ranking
-        
-        
-    val ranks = graph.pageRank(0.01)
-    val ranked = nodesRDD.join(ranks.vertices).sortBy(-_._2._2)
-    //ranked.take(20) foreach println  //page ranks stop when ranks don't change by 0.01
-    
-    
+    val ranks = heroGraph.pageRank(0.01)
+    val ranked = nodesRDD.join(ranks.vertices).sortBy(_._2._2)
+    ranked.take(20) foreach println //page ranks stop when ranks don't change by 0.01
+
+		sc.stop()
     
     //large task size 
     

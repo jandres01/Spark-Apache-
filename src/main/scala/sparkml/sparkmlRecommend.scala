@@ -39,7 +39,7 @@ import scala.io.Source._
 import java.io._
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 
-object sparkMlRecommend extends App {
+object sparkmlRecommend extends App {
   val spark = SparkSession.builder().master("spark://pandora00:7077").getOrCreate()
   import spark.implicits._
   Logger.getLogger("org").setLevel(Level.OFF)

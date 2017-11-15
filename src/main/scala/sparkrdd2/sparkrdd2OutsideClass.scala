@@ -231,16 +231,16 @@ object sparkrdd2OutsideClass extends JFXApp {
       getAvgTempFromFile(2017) 
   )
   
- // val rddTemps = sc.parallelize(rddAvgTemps)
+//  val rddTemps = sc.parallelize(rddAvgTemps)
   //rddTemps.take(5) foreach println
   println("Problem 3 a")
   //avgTemp1897.collect().sortBy(_._1) foreach println
   
   println("Problem 3 c")
- // val bins = (0.0 to 500.0 by 1.0).toArray
- // val hist = rddTemps.histogram(bins, true)
- // val plot = Plot.histogramPlot(bins, hist, RedARGB, false)
- // FXRenderer(plot)
+//  val bins = (0.0 to 500.0 by 1.0).toArray
+//  val hist = rddTemps.histogram(bins, true)
+//  val plot = Plot.histogramPlot(bins, hist, RedARGB, false)
+//  FXRenderer(plot)
   
   def getStationAvgTempFromBothYears(year:Int) {
     val path = sc.textFile("/users/mlewis/CSCI3395-F17/data/ghcn-daily/2017.csv")
