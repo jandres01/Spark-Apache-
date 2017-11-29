@@ -39,8 +39,14 @@ object NOAAClustering extends JFXApp {
   stationsWithClusters.show
   
   val x = stationsWithClusters.select('lon).as[Double].collect()
+  x.take(20) foreach println
   val y = stationsWithClusters.select('lat).as[Double].collect()
+  println("y")
+  y.take(20) foreach println
   val predict = stationsWithClusters.select('prediction).as[Double].collect()
+  println("predict")
+  predict.take(20) foreach println
+  
   val cg = ColorGradient(0.0 -> BlueARGB, 1000.0 -> RedARGB, 2000.0 -> GreenARGB)
   val plot = Plot.scatterPlot(x, y, "Station Clusters", "Longitude", "Latitude", 3, predict.map(cg))
   

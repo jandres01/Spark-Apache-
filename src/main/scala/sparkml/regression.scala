@@ -69,8 +69,6 @@ object regression extends App {
   println("In Class F:")
   dFrame.describe("SLEPTIM1").show()
   
- //dFrame.show()
-  
   val dataDoubles = dataRDD.map { line =>
     Array(columnData.map { row =>
       try {
@@ -80,6 +78,8 @@ object regression extends App {
       }
     }:_*)   //:_* is everything 
   }
+  
+ 
   
  val colNames = columnData.map(x => x._1)
   
