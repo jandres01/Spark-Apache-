@@ -230,7 +230,7 @@ object sparkmlclassify extends App {
   
 //  val modelAbove2GBT = pipelineGBT.fit(trainDataAbove2)
 //  val predictionsAbove2GBT = modelAbove2GBT.transform(testDataAbove2)
-//  val accuracyAbove2GBT = evaluator.evaluate(predictionsAbove2GBT)
+//  val accuracyAbove2GBT = evaluator.evaluate(predictionsAbove2GBT) 
 //  println(s"GBT accuracy above 2 OC Q#2 = $accuracyAbove2GBT")
   
 }
