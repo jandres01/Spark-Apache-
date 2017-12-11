@@ -79,8 +79,6 @@ object regression extends App {
     }:_*)   //:_* is everything 
   }
   
- 
-  
  val colNames = columnData.map(x => x._1)
   
  val dataVectors = dataDoubles.map(x => Vectors.dense(x))
@@ -116,9 +114,9 @@ object regression extends App {
   val genmodel = genlr.fit(genwithFeatures)
   //println(genmodel.coefficients+" "+genmodel.intercept)
   val fitDataGen = genmodel.transform(genwithFeatures).select(genCol,genCol1,genCol2,"features","prediction")
-  //fitDataGen.show()
+  fitDataGen.show()
   println("Describe Gen")
-  //fitDataGen.describe("prediction").show()
+  fitDataGen.describe("prediction").show()
 
   val physCol = "PHYSHLTH"
   val physCol1 = "HAVARTH3"
@@ -158,6 +156,7 @@ object regression extends App {
   //fitDatapoot.show()
   println("Describe POOR")
   fitDatapoot.describe("prediction").show()
+  
   
   spark.stop()
 

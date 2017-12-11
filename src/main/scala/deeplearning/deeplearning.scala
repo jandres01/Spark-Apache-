@@ -44,7 +44,7 @@ object DeepLearning extends App {
     var batchSize = 2946;    //Iris data set: 150 examples total. We are loading all of them into one DataSet (not recommended for large data sets)
 
     var iterator = new RecordReaderDataSetIterator(recordReader,batchSize,labelIndex,numClasses);
-    var allData = iterator.next();
+    var allData = iterator.next(); 
     allData.shuffle();
     var testAndTrain = allData.splitTestAndTrain(0.65);  //Use 65% of data for training
 

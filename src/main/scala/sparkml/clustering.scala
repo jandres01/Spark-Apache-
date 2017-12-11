@@ -84,7 +84,7 @@ object Clustering extends JFXApp {
   val typedData = columnsToKeep.foldLeft(electionZip)((df, colName) => df.withColumn(colName, df(colName).cast(DoubleType).as(colName))).na.drop()
   val stationVA = new VectorAssembler().setInputCols(columnsToKeep).setOutputCol("location")
   val stationsWithVect = stationVA.transform(typedData) 
-  val kMeans = new KMeans().setK(3007).setFeaturesCol("location")
+  val kMeans = new KMeans().setK(3).setFeaturesCol("location")
   val stationClusterModel = kMeans.fit(stationsWithVect)
   
   val stationsWithClusters = stationClusterModel.transform(stationsWithVect)
