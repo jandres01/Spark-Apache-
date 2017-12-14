@@ -41,11 +41,8 @@ ROE is calculated by Net Income / Shareholder Equity. It is a measure of a compa
 ![Alt Text]("/users/jandres/Desktop/BGPics/Financial\ Crisis.png")
 
 
-What is surprising is that we can see that during the Oil Crisis net Income was impacted the most probably because expenses increased for all the companies. During the Tech Bubble and Financial Crisis Net Income was beginning to match Sales therefore companies were decreasing their costs for profit margins to be similar to regular economy. 
+What is surprising is that we can see that during the Oil Crisis net Income was impacted the most probably because expenses increased for all the companies. However, during the Tech Bubble and Financial Crisis we had companies producing positive ratios. Companies had decreased sales & lowered their costs to ensure costs were less than sales for net income to stay positive. However, we know reducing company costs did include firing of numerous employees of the company. 
 
-
-
-
-
+From the data we can see that the Oil Crisis is when publicly traded companies were most affected. Followed by the financial crisis then the tech bubble.
 
 
