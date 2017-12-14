@@ -162,7 +162,9 @@ object sparkSQL extends JFXApp {
   
   val cg = ColorGradient((0.0,BlueARGB),(10.0,GreenARGB),(20.0,RedARGB)) 
   
-//   val tplot = Plot.scatterPlotGrid(Seq( (latlong00.map(a => a._2), latlong00.map(a=> a._1), t15.map(cg), 3 ), (latlong05.map(a => a._2), latlong05.map(a=> a._1), latlong05.map(a => cg(a._3),3))),
+
+  
+//   val tplot = Plot.scatterPlotGrid(Seq( Seq(latlong00.map(a => a._2), latlong00.map(a=> a._1), latlong15.map(a => cg(a._3))), (latlong05.map(a => a._2), latlong05.map(a=> a._1), latlong05.map(a => cg(a._3),3))),
 //              Seq((latlong10.map(a => a._2), latlong10.map(a=> a._1), latlong10.map(a => cg(a._3)),3), (latlong15.map(a => a._2), latlong15.map(a=> a._1), latlong15.map(a => cg(a._3),3))),
 //              "Unemployment Rate in US",
 //              )

@@ -155,19 +155,19 @@ object graphx extends JFXApp {
     FXRenderer(plot)
 
     //Out of Class Q#4
-//    println("Shortest Paths")
-//    //Find distance between Pregnancy and Esophagus
-//    val sp = ShortestPaths.run(graph, Seq(indexMap("Pregnancy")))
-//    println(sp.vertices.filter(_._1==indexMap("Esophagus")).first)
-//    
-//    //shortestPath Femoral Artery and Electroencephalography
-//    val sp3 = ShortestPaths.run(graph, Seq(indexMap("Femoral Artery")))
-//    println(sp3.vertices.filter(_._1==indexMap("Electroencephalography")).first)
-//    
-//    //shortestPath Taxes and Guinea Pigs
-//    
-//    val sp6 = ShortestPaths.run(graph, Seq(indexMap("Taxes")))
-//    println(sp6.vertices.filter(_._1==indexMap("Guinea Pigs")).first)
+    println("Shortest Paths")
+    //Find distance between Pregnancy and Esophagus
+    val sp = ShortestPaths.run(graph, Seq(indexMap("Pregnancy")))
+    println(sp.vertices.filter(_._1==indexMap("Esophagus")).first)
+    
+    //shortestPath Femoral Artery and Electroencephalography
+    val sp3 = ShortestPaths.run(graph, Seq(indexMap("Femoral Artery")))
+    println(sp3.vertices.filter(_._1==indexMap("Electroencephalography")).first)
+    
+    //shortestPath Taxes and Guinea Pigs
+    
+    val sp6 = ShortestPaths.run(graph, Seq(indexMap("Taxes")))
+    println(sp6.vertices.filter(_._1==indexMap("Guinea Pigs")).first)
     
     
     sc.stop()
