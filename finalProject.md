@@ -10,25 +10,25 @@ I collected my data set from Wharton University, who gathered publicly traded co
 
 To begin the project I wrote a correlation matrix of the entire data set. 
 
-![Alt Text]("/users/jandres/Desktop/BGPics/Whole\ economy.png")
+![Alt Text](/users/jandres/Desktop/BGPics/Whole\ economy.png)
 
 I discovered that sales, price and assets have positive correlations with one another. Surprisingly, sales and assets even have a 54.29% relationship. However, I began wondering how the relationships reacted during a financial crisis and good economic times. 
 
 Correlation during economic crisis
 
-![Alt Text]("/users/jandres/Desktop/BGPics/bad\ economy.png")
+![Alt Text](/users/jandres/Desktop/BGPics/bad\ economy.png)
 
 Correlation during normal economy
 
-![Alt Text]("/users/jandres/Desktop/BGPics/Good\ Economy.png")
+![Alt Text](/users/jandres/Desktop/BGPics/Good\ Economy.png)
 
 During an economic crisis, we would get similar results to the correlation of data for the entire data set. However, during a normal economy we could find positive correlations with next_return and return on equity. What this tells us is that depending on the status of the economy we would find different relationships between financial data. If the economy is doing well, we may have a higher possibility of predicting future data.
 
 For my second machine learning technique, I decided to create a linear regression for predicting return of equity for whole data set and its subsets. I passed in 2 columns with highest positive correlation, which are price and sales. The S&P500 has a current ROE average of 15.68% as of Dec 12, 2017. Therefore, green points would have an ROE >= 25% and red points would have an ROE <=10%.
 
-![Alt Text]("/users/jandres/Desktop/BGPics/ROE\ whole\ data.png")
-![Alt Text]("/users/jandres/Desktop/BGPics/ROE\ good\ data.png")
-![Alt Text]("/users/jandres/Desktop/BGPics/ROE\ oil\ Crisis.png")
+![Alt Text](/users/jandres/Desktop/BGPics/ROE\ whole\ data.png)
+![Alt Text](/users/jandres/Desktop/BGPics/ROE\ good\ data.png)
+![Alt Text](/users/jandres/Desktop/BGPics/ROE\ oil\ Crisis.png)
 ![Alt Text]("/users/jandres/Desktop/BGPics/ROE\ tech\ bubble.png")
 ![Alt Text]("/users/jandres/Desktop/BGPics/ROE\ financial\ crisis.png")
 
